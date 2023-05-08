@@ -1,4 +1,5 @@
 import './App.css';
+import Alert from './components/Alert';
 import ListGroup from './components/ListGroup';
 
 const App = () => {
@@ -9,6 +10,9 @@ const App = () => {
 
   return (
     <div>
+      <Alert>
+        <h1>Hello World</h1>
+      </Alert>
       <ListGroup
         items={items}
         heading='Cities'
