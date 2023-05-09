@@ -3,6 +3,7 @@ import './App.css';
 import Alert from './components/Alert';
 import Button from './components/Button';
 import ListGroup from './components/ListGroup';
+import { BsFillCalendarFill } from 'react-icons/bs';
 
 const App = () => {
   const items = ['New York', 'San Francisco', 'Tokyo', 'London', 'Paris'];
@@ -27,7 +28,8 @@ const App = () => {
           <h1>Hello World</h1>
         </Alert>
       )}
-
+      <BsFillCalendarFill size='40' />
+      <br />
       <Button onButtonClick={handleButtonClick}>This is a button</Button>
       <ListGroup
         items={items}
