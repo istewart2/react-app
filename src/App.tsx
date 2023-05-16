@@ -3,7 +3,8 @@ import './App.css';
 import Alert from './components/Alert';
 import Button from './components/Button';
 import ListGroup from './components/ListGroup';
-import { BsFillCalendarFill } from 'react-icons/bs';
+import { BsBug, BsFillCalendarFill } from 'react-icons/bs';
+import produce from 'immer';
 
 const App = () => {
   const items = ['New York', 'San Francisco', 'Tokyo', 'London', 'Paris'];
@@ -18,6 +19,24 @@ const App = () => {
       zipCode: 94111,
     },
   });
+
+  const [bugs, setBugs] = useState([
+    { id: 1, title: 'Bug 1', fixed: false },
+    { id: 2, title: 'Bug 2', fixed: false },
+  ]);
+
+  const handleUpdateArrayUsingImmer = () => {
+    //setBugs(bugs.map((bug) => (bug.id === 1 ? { ...bug, fixed: true } : bug)));
+    // draft is proxy object that records changes that will be applied
+    setBugs(
+      produce((draft) => {
+        const bug = draft.find((bug) => bug.id === 1);
+        if (bug) {
+          bug.fixed = true;
+        }
+      })
+    );
+  };
 
   const handleUpdateCustomer = () => {
     console.log(customer);
@@ -78,6 +97,14 @@ const App = () => {
       <Button onButtonClick={handleButtonClick}>This is a button</Button>
       <Button onButtonClick={handleUpdateCustomer}>Update customer</Button>
       <Button onButtonClick={handleUpdateArray}>Update array</Button>
+      <Button onButtonClick={handleUpdateArrayUsingImmer}>
+        Update array using immer
+      </Button>
+      {bugs.map((bug) => (
+        <p key={bug.id}>
+          {bug.title} {bug.fixed ? 'fixed' : 'not fixed'}
+        </p>
+      ))}
       <ListGroup
         items={items}
         heading='Cities'
